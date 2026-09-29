@@ -1,0 +1,165 @@
+// Fonts
+@use "fonts";
+
+// Reset
+@use "reset";
+
+// Variables
+@use "variables";
+
+//pages-sections
+@use "header";
+@use "home";
+@use "footer";
+
+// Mixins
+@use "mixin" as *;
+/* Base styles */
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	font-size: toRem(15);
+	line-height: 1.5;
+	background-color: var(--white-color);
+	color: var(--main-color);
+}
+
+// Site-wide watercolor paper texture.
+// The image is a single frame, not a seamless tile, so it must not repeat.
+// A fixed layer keeps one copy the size of the viewport instead of stretching
+// it over the whole document, and unlike background-attachment: fixed it also
+// works on iOS Safari.
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+
+	background-image: url("../img/bg/bg-section.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+/* Scrollbar */
+html {
+	// Standard properties, read by Firefox and Chrome 121+. Both are inherited,
+	// so the scrolling panels inside the page pick them up as well.
+	scrollbar-color: var(--green-color) var(--white-color);
+	scrollbar-width: thin;
+}
+
+// WebKit fallback for Safari and older Chrome and Edge. Chrome 121+ ignores
+// these as soon as scrollbar-color is set, so the width there comes from
+// scrollbar-width, and the hover below only shows where these rules apply.
+::-webkit-scrollbar {
+	width: toRem(10);
+	height: toRem(10);
+}
+
+::-webkit-scrollbar-track {
+	background-color: var(--white-color);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--green-color);
+
+	border-radius: toRem(5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--high-green-color);
+}
+
+/* Sticky footer */
+.wrapper {
+	min-height: 100%;
+	overflow: clip;
+
+	display: flex;
+	flex-direction: column;
+}
+
+/* Header offset */
+:root {
+	// Real header height, written by js/script.js. The value below is only a fallback
+	// so the page does not jump before the script runs.
+	--header-height: #{toRem(60)};
+}
+
+.wrapper > main {
+	flex: 1 1 auto;
+}
+
+/* Skip link */
+.skip-link {
+	position: fixed;
+	top: 0;
+	left: toRem(15);
+	z-index: 200;
+
+	padding-block: toRem(12);
+	padding-inline: toRem(20);
+
+	font-size: toRem(15);
+	font-weight: 500;
+
+	color: var(--white-color);
+	background-color: var(--green-color);
+
+	border-radius: 0 0 toRem(5) toRem(5);
+
+	// Sits above the viewport until it takes focus
+	transform: translateY(-100%);
+
+	transition: transform 0.3s;
+
+	&:focus {
+		transform: translateY(0);
+	}
+}
+
+/* Accessibility */
+
+// Text meant only for screen readers
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: toRem(-1);
+	padding: 0;
+
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+// The bullets are 22x4px, so the default focus ring around them is easy to miss
+.swiper-pagination-bullet:focus-visible {
+	outline: toRem(2) solid var(--green-color);
+	outline-offset: toRem(4);
+}
+
+// Motion is a preference, not a decoration
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Container */
+[class*="__container"] {
+	max-width: toRem(1310);
+	margin: 0 auto;
+	padding-inline: toRem(15);
+}
