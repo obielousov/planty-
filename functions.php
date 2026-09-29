@@ -145,6 +145,32 @@ function planty_scripts()
 add_action('wp_enqueue_scripts', 'planty_scripts');
 
 /**
+ * Open Graph and Twitter Card tags, so a shared link gets a preview.
+ *
+ * The image is a fixed file in the theme: this is a one page site, so there is
+ * nothing to pick per post. Width and height are deliberately left out — the
+ * file can be replaced, and stale numbers would be worse than none.
+ */
+function planty_open_graph()
+{
+	$planty_title       = wp_get_document_title();
+	$planty_description = get_bloginfo('description');
+	$planty_url         = home_url('/');
+	$planty_image       = planty_asset('img/collection/collection01.jpg');
+	?>
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="<?php echo esc_attr(get_bloginfo('name')); ?>">
+	<meta property="og:locale" content="<?php echo esc_attr(get_locale()); ?>">
+	<meta property="og:title" content="<?php echo esc_attr($planty_title); ?>">
+	<meta property="og:description" content="<?php echo esc_attr($planty_description); ?>">
+	<meta property="og:url" content="<?php echo esc_url($planty_url); ?>">
+	<meta property="og:image" content="<?php echo esc_url($planty_image); ?>">
+	<meta name="twitter:card" content="summary_large_image">
+	<?php
+}
+add_action('wp_head', 'planty_open_graph', 5);
+
+/**
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
