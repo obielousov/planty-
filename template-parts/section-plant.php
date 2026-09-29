@@ -34,7 +34,7 @@ $planty_plant_slides = new WP_Query(
 ?>
 <section class="plant">
 	<?php if ($planty_plant_slides->have_posts()) : ?>
-		<div class="plant__slider swiper">
+		<div class="plant__slider swiper" data-reveal>
 			<div class="plant__wrapper swiper-wrapper">
 				<?php while ($planty_plant_slides->have_posts()) : ?>
 					<?php

@@ -14,7 +14,7 @@ if (empty($planty_find_image)) {
 	$planty_find_image = planty_asset('img/bg/bg-plant.jpg');
 }
 ?>
-<section class="find">
+<section class="find" data-reveal>
 	<div class="find__content">
 		<h2 class="find__title"><?php echo esc_html($planty_find_title); ?></h2>
 		<a href="<?php echo esc_url($planty_find_link); ?>"

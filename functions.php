@@ -8,11 +8,6 @@
  * @package planty
  */
 
-if (! defined('_S_VERSION')) {
-	// Replace the version number of the theme on each release.
-	define('_S_VERSION', '1.0.1');
-}
-
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -29,9 +24,6 @@ function planty_setup()
 		* to change 'planty' to the name of your theme in all the template files.
 		*/
 	load_theme_textdomain('planty', get_template_directory() . '/languages');
-
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support('automatic-feed-links');
 
 	/*
 		* Let WordPress manage the document title.
@@ -64,29 +56,12 @@ function planty_setup()
 		'html5',
 		array(
 			'search-form',
-			'comment-form',
-			'comment-list',
 			'gallery',
 			'caption',
 			'style',
 			'script',
 		)
 	);
-
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'planty_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
-
-	// Add theme support for selective refresh for widgets.
-	add_theme_support('customize-selective-refresh-widgets');
 
 	/**
 	 * Add support for core custom logo.
@@ -117,27 +92,6 @@ function planty_content_width()
 	$GLOBALS['content_width'] = apply_filters('planty_content_width', 640);
 }
 add_action('after_setup_theme', 'planty_content_width', 0);
-
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function planty_widgets_init()
-{
-	register_sidebar(
-		array(
-			'name'          => esc_html__('Sidebar', 'planty'),
-			'id'            => 'sidebar-1',
-			'description'   => esc_html__('Add widgets here.', 'planty'),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
-}
-add_action('widgets_init', 'planty_widgets_init');
 
 /**
  * URL of a file inside the theme. Replaces the absolute /img/... paths the
@@ -185,26 +139,10 @@ function planty_scripts()
 		)
 	);
 
-	if (is_singular() && comments_open() && get_option('thread_comments')) {
-		wp_enqueue_script('comment-reply');
-	}
+	// WordPress loads this only so other sites can embed ours. Not needed here.
+	wp_deregister_script('wp-embed');
 }
 add_action('wp_enqueue_scripts', 'planty_scripts');
-
-/**
- * Implement the Custom Header feature.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
 
 /**
  * Customizer additions.
@@ -220,13 +158,6 @@ require get_template_directory() . '/inc/post-types.php';
  * Shop section.
  */
 require get_template_directory() . '/inc/shop.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-if (defined('JETPACK__VERSION')) {
-	require get_template_directory() . '/inc/jetpack.php';
-}
 
 
 /**

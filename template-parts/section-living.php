@@ -13,7 +13,7 @@ $planty_living_link_text = get_theme_mod('planty_living_link_text', 'Shop Now');
 $planty_living_link = get_theme_mod('planty_living_link', '#');
 ?>
 <section class="living">
-	<div class="living__container">
+	<div class="living__container" data-reveal>
 		<h2 class="living__title"><?php echo esc_html($planty_living_title); ?></h2>
 		<div class="living__text">
 			<p><?php echo esc_html($planty_living_text); ?></p>

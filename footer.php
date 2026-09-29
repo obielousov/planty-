@@ -150,7 +150,7 @@
 		</div>
 	</div>
 </footer>
-</div><!-- #page -->
+</div><!-- .wrapper -->
 
 <?php wp_footer(); ?>
 

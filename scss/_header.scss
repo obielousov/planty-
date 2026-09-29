@@ -295,3 +295,70 @@
 		overflow: hidden;
 	}
 }
+
+// Header entrance, released by the same "loaded" class as the hero. The bar only
+// fades and never moves: .menu__body and .menu__overlay are position: fixed on
+// mobile, and a transform on an ancestor would re-anchor them to the header box
+// instead of the viewport. Opacity does not do that, so it is safe here.
+@media (prefers-reduced-motion: no-preference) {
+	// The pieces start outside the bar and the bar clips them, so they slide out
+	// from behind its edges instead of floating over the background
+	.header__container {
+		overflow: hidden;
+
+		transition: opacity 0.6s ease-out;
+	}
+
+	.header__logo,
+	.menu__burger,
+	.menu__item,
+	.header__link-actions {
+		transition:
+			opacity 0.8s ease-out,
+			translate 0.8s ease-out;
+	}
+
+	.header__logo,
+	.menu__burger {
+		transition-delay: 0.15s;
+	}
+
+	// One rhythm for the whole row: six menu items, then the two buttons
+	@for $i from 1 through 6 {
+		.menu__item:nth-child(#{$i}) {
+			transition-delay: 0.18s + $i * 0.07s;
+		}
+	}
+
+	@for $i from 1 through 2 {
+		.header__link-actions:nth-child(#{$i}) {
+			transition-delay: 0.6s + $i * 0.07s;
+		}
+	}
+
+	html:not(.loaded) {
+		.header__container,
+		.header__logo,
+		.menu__burger,
+		.menu__item,
+		.header__link-actions {
+			opacity: 0;
+		}
+
+		.header__logo {
+			translate: toRem(-30) 0;
+		}
+
+		.menu__burger {
+			translate: toRem(30) 0;
+		}
+
+		.menu__item {
+			translate: 0 toRem(-16);
+		}
+
+		.header__link-actions {
+			translate: toRem(30) 0;
+		}
+	}
+}

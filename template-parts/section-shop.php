@@ -20,7 +20,7 @@ if (is_wp_error($planty_shop_terms)) {
 }
 ?>
 <section class="shop">
-	<div class="shop__container">
+	<div class="shop__container" data-reveal>
 		<h2 class="section__title shop__title"><?php echo esc_html($planty_shop_title); ?></h2>
 		<?php if ($planty_shop_terms) : ?>
 			<div class="shop__tabs tabs">

@@ -26,7 +26,7 @@ if (empty($planty_card_2_image)) {
 }
 ?>
 <section class="collection">
-	<div class="collection__container">
+	<div class="collection__container" data-reveal>
 		<h2 class="section__title  collection__title"><?php echo esc_html($planty_collection_title); ?></h2>
 		<div class="collection__content content-collection">
 			<div class="content-collection__item item-collection">

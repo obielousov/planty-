@@ -33,7 +33,7 @@ $planty_deal_slides = new WP_Query(
 );
 ?>
 <section class="deal">
-	<div class="deal__inner">
+	<div class="deal__inner" data-reveal>
 		<h2 class="section__title deal__title"><?php echo esc_html($planty_deal_title); ?></h2>
 		<div class="deal__content">
 			<div class="deal__media">
@@ -52,16 +52,9 @@ $planty_deal_slides = new WP_Query(
 								$planty_image = planty_asset('img/plant/slide-plant01.png');
 							}
 
-							$planty_price_old = get_post_meta(get_the_ID(), 'planty_deal_price_old', true);
-							$planty_price_new = get_post_meta(get_the_ID(), 'planty_deal_price_new', true);
+							$planty_price_old = planty_price(get_post_meta(get_the_ID(), 'planty_deal_price_old', true));
+							$planty_price_new = planty_price(get_post_meta(get_the_ID(), 'planty_deal_price_new', true));
 							$planty_deadline  = get_post_meta(get_the_ID(), 'planty_deal_deadline', true);
-
-							// The editor holds digits only, so the currency symbol is added
-							// here and a symbol typed by hand does not show up twice
-							$planty_price_old = preg_replace('/[^0-9.,]/', '', $planty_price_old);
-							$planty_price_new = preg_replace('/[^0-9.,]/', '', $planty_price_new);
-							$planty_price_old = $planty_price_old ? '$ ' . $planty_price_old : '';
-							$planty_price_new = $planty_price_new ? '$ ' . $planty_price_new : '';
 							?>
 							<div class="deal__slide swiper-slide" data-deadline="<?php echo esc_attr($planty_deadline); ?>">
 								<div class="deal-slide__media">

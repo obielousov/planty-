@@ -17,7 +17,7 @@ $planty_reviews_query = new WP_Query(
 );
 ?>
 <section class="reviews">
-	<div class="reviews__container">
+	<div class="reviews__container" data-reveal>
 		<h2 class="section__title reviews__title"><?php echo esc_html($planty_reviews_title); ?></h2>
 		<?php if ($planty_reviews_query->have_posts()) : ?>
 			<div class="reviews__slider swiper">

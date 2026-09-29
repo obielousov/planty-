@@ -8,7 +8,10 @@
 	min-height: 100svh;
 
 	padding-top: clamp(2.5rem, -3.1984rem + 11.8871vw, 7.5rem); /* 120/40>1440-767 */
-	padding-block-end: toRem(35);
+
+	@media (width <= toEm(767)) {
+		padding-block-end: toRem(35);
+	}
 
 	overflow: hidden;
 	// .hero__container
@@ -226,6 +229,77 @@
 			block-size: toRem(2);
 
 			background-color: var(--green-color);
+		}
+	}
+}
+
+// Hero entrance. The "loaded" class on <html> is added by js/script.js, so the
+// scene assembles only once the page has settled. Everything below animates what
+// is inside the slides, never the slides themselves: Swiper owns those.
+@media (prefers-reduced-motion: no-preference) {
+	.hero__decor,
+	.hero__content,
+	.hero__media,
+	.hero__pagination {
+		transition:
+			opacity 0.9s ease-out,
+			translate 0.9s ease-out,
+			scale 0.9s ease-out;
+	}
+
+	.hero__decor--top {
+		transition-delay: 0.1s;
+	}
+
+	.hero__decor--top-right {
+		transition-delay: 0.2s;
+	}
+
+	.hero__decor--bottom {
+		transition-delay: 0.3s;
+	}
+
+	.hero__content {
+		transition-delay: 0.35s;
+	}
+
+	.hero__media,
+	.hero__pagination {
+		transition-delay: 0.5s;
+	}
+
+	// Held back until the script says the page is ready
+	html:not(.loaded) {
+		.hero__decor,
+		.hero__content,
+		.hero__media,
+		.hero__pagination {
+			opacity: 0;
+		}
+
+		.hero__decor--top {
+			translate: toRem(-60) 0;
+		}
+
+		.hero__decor--top-right {
+			translate: toRem(60) 0;
+		}
+
+		.hero__decor--bottom {
+			translate: 0 toRem(50);
+		}
+
+		.hero__content {
+			translate: 0 toRem(40);
+		}
+
+		.hero__media {
+			translate: 0 toRem(30);
+			scale: 0.96;
+		}
+
+		.hero__pagination {
+			translate: 0 toRem(30);
 		}
 	}
 }
@@ -489,7 +563,7 @@
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 .living {
-	padding-block: toRem(35);
+	padding-block: clamp(1.875rem, 0.5855rem + 4.2105vw, 4.375rem); /* 70/30>1440-490 */
 	// .living__container
 
 	&__container {
