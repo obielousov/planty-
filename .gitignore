@@ -1,0 +1,7 @@
+# The SCSS build compiles every partial into its own file. The theme loads
+# css/style.css only, so the rest are leftovers that would otherwise show up as
+# untracked files after every build.
+css/mixin.css
+css/reset.css
+css/variables.css
+css/style.css.map
